@@ -35,6 +35,13 @@ const Employeer=mongoose.model('Employeer',{
     },
     Age:{
         type:String
+    },
+    citizenship:{
+        type:String,
+        require:true
+    },
+    approved:{
+        type:Boolean
     }
 
 })
