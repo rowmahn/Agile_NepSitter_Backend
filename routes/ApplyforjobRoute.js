@@ -3,25 +3,40 @@ const router = express.Router();
 const Worker = require('../Model/Applyforjob')
 
 router.post('/Worker_insert',function(req, res){
-   const Fname = req.body.Fname;
-   const Lname = req.body.Lname;
-   const BirthDate = req.body.BirthDate;
-   const Gender = req.body.Gender;
-   const PhoneNo = req.body.PhoneNo;
-   const Address = req.body.Address;
-   const JobCategory = req.body.JobCategory;
-   const AvailabilityMorning = req.body.AvailabilityMorning;
-   const AvailabilityEvening = req.body.AvailabilityEvening;
-   const AvailabilityAfternoon = req.body.AvailabilityAfternoon;
-   const AvailabilityNight = req.body.AvailabilityNight;
-   const Email = req.body.Email;
-   const Password = req.body.Password;
-   const ProfilePic = req.body.Profilepic;
-    const worker = new Worker({Fullname:Fullname, BirthDate:BirthDate, Gender:Gender, PhoneNo:PhoneNo,
-    Address:Address, JobCategory:JobCategory, AvailabilityMorning:AvailabilityMorning, AvailabilityNight:
-    AvailabilityNight, AvailabilityAfternoon:AvailabilityAfternoon, AvailabilityEvening:AvailabilityEvening
-    ,Email:Email, Password:Password,
-    ProfilePic:ProfilePic});
+   const fname = req.body.fname;
+   const lname = req.body.lname;
+   const bdate = req.body.bdate;
+   const phone = req.body.phone;
+   const email = req.body.email;
+   const password = req.body.password;
+   const address = req.body.address;
+   const city = req.body.city;
+   const district = req.body.district;
+
+   const yourself = req.body.yourself;
+   const certificate = req.body.certificate;
+   const gender = req.body.gender;
+   const province = req.body.province;
+   const study = req.body.study;
+   const status = req.body.status;
+   const smoke = req.body.smoke;
+   const drink = req.body.drink;
+   const jobcategory = req.body.jobcategory;
+
+   const availabilityMorning = req.body.availabilityMorning;
+   const availabilityEvening = req.body.availabilityEvening;
+   const availabilityAfternoon = req.body.availabilityAfternoon;
+   const availabilityNight = req.body.availabilityNight;
+
+
+    const worker = new Worker({
+    fname:fname, lname:lname, bdate:bdate, phone:phone,
+    email:email, password:password, address:address, city:city, district:district,
+    yourself:yourself, certificate:certificate, gender:gender, province:province,
+    study:study, status:status, smoke:smoke, drink:drink, jobcategory:jobcategory,
+    availabilityMorning:availabilityMorning, availabilityEvening:availabilityEvening,
+    availabilityAfternoon:availabilityAfternoon, availabilityNight:availabilityNight
+});
     worker.save()
     .then(function(result){
       res.status(201).json({message: "Form submited we will review it soon!!", success:true })

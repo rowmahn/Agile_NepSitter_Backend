@@ -1,60 +1,96 @@
 const mongoose = require('mongoose');
 const Worker = mongoose.model('Worker', {
-    Fname: {
+    fname: {
         type: String,
         required:true
     },
-    Lname: {
+    lname: {
         type: String,
         required:true
     },
-    BirthDate: {
+    bdate: {
         type: String,
         required:true
     },
-    Gender: {
+    phone: {
         type: String,
         required:true
     },
-    PhoneNo: {
+    email: {
         type: String,
         required:true
     },
-    Address: {
+    password: {
         type: String,
         required:true
     },
-    JobCategory: {
+    address: {
         type: String,
         required:true
     },
-    AvailabilityMorning: [{
+    city: {
+        type: String,
+        required:true
+    },
+    district: {
+        type: String,
+        required:true
+    },
+
+    yourself: {
+        type: String,
+        required:true
+    },
+    certificate: {
+        type: String,
+        required:true
+    },
+    gender: {
+        type: String,
+        required:true
+    },
+    province: {
+        type: String,
+        required:true
+    },
+    study: {
+        type: String,
+        required:true
+    },
+    status: {
+        type: String,
+        required:true
+    },
+    smoke: {
+        type: String,
+        required:true
+    },
+    drink: {
+        type: String,
+        required:true
+    },
+    jobcategory: {
+        type: String,
+        required:true
+    },
+    
+    availabilityMorning: [{
     type: String,
-    enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','thrusday','Friday','Saturday'],
+    enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thrusday','Friday','Saturday'],
     }],
-    AvailabilityEvening: [{
+    availabilityEvening: [{
     type: String,
-     enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','thrusday','Friday','Saturday'],
+     enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thrusday','Friday','Saturday'],
      }],
-    AvailabilityAfternoon: [{
+    availabilityAfternoon: [{
      type: String,
-     enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','thrusday','Friday','Saturday'],
+     enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thrusday','Friday','Saturday'],
      }],
-     AvailabilityNight: [{
+     availabilityNight: [{
      type: String,
-     enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','thrusday','Friday','Saturday'],
+     enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thrusday','Friday','Saturday'],
      }],
-    Email: {
-        type: String,
-        required:true
-    },
-    Password: {
-        type: String,
-        required:true
-    },
-    ProfilePic:{
-        type:String
-    },
+    
     createdAt: {
         type: Date,
         default: Date.now
