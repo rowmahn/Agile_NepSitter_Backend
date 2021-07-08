@@ -35,14 +35,17 @@ router.post('/applyforjob',function(req, res){
     email:email, password:password, address:address, city:city, district:district,
     yourself:yourself, certificate:certificate, gender:gender, province:province,
     study:study, status:status, smoke:smoke, drink:drink, jobcategory:jobcategory,
-    availabilityMorning:availabilityMorning, availabilityEvening:availabilityEvening,
-    availabilityAfternoon:availabilityAfternoon, availabilityNight:availabilityNight
+    availabilityMorning:availabilityMorning
+    // , availabilityEvening:availabilityEvening,
+    // availabilityAfternoon:availabilityAfternoon, availabilityNight:availabilityNight
 });
     worker.save()
     .then(function(result){
       res.status(201).json({message: "Form submited we will review it soon!!", success:true })
     })
     .catch(function(e){
+
+      console.log(e)
       res.status(500).json({message:e, success:false})
     })
 })

@@ -12,9 +12,10 @@ app.use(bodyParser.urlencoded({extended: false}))
 const db=require('./database/db')
 
 
-app.use(ApplyforjobRoute);
+
 app.use(cors(
     // {credentials: true, origin: 'http://localhost:3000'}
     ))
+    app.use(ApplyforjobRoute);
 
 app.listen(90);
