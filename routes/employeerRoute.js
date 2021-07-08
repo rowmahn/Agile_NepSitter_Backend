@@ -15,7 +15,7 @@ router.post('/employer/register',[
     check('Password',"password should not be empty!!!").not().isEmpty(),
     check('Phone',"Phone should not be empty !!").not().isEmpty(),
     
-],upload.single('Image'),upload.single('Citizenship'),function(req,res){
+],upload.single('Citizenship'),function(req,res){
     
     const errors=validationResult(req);
     
@@ -29,7 +29,7 @@ router.post('/employer/register',[
         const Location=req.body.Location;
         const Password=req.body.Password;
         const Contact=req.body.Contact;
-        const Image=req.file.filename;
+        // const Image=req.file.filename;
         const Citizenship=req.file.filename;
         const Gender=req.body.gender;
         
@@ -39,7 +39,7 @@ router.post('/employer/register',[
                 Contact:Contact,
                 Email:Email,
                 Password:hash,
-                Image:Image,
+                // Image:Image,
                 Gender:Gender,
                 Age:Age,
                 Location:Location,
