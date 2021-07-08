@@ -13,10 +13,10 @@ router.post('/user/login',function(req,res){
         if(userData===null){
            return res.status(401).json({message:"Authentication fail"})
         }
-        else if(userData.Approved===false)
-        {
-            return res.status(403).json({message:"unApproved user"})
-        }
+        // else if(userData.Approved===false)
+        // {
+        //     return res.status(403).json({message:"unApproved user"})
+        // }
         bcryptjs.compare(req.body.Password,userData.Password,function(err,cresult){
             if(cresult===false){
               return  res.status(401).json({message:" unAuthorized user"})
