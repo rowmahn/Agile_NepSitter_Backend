@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Worker = require('../Model/Applyforjob')
+const Worker = require('../models/Applyforjob')
 
-router.post('/Worker_insert',function(req, res){
+router.post('/applyforjob',function(req, res){
+  // console.log("gggh")
    const fname = req.body.fname;
    const lname = req.body.lname;
    const bdate = req.body.bdate;

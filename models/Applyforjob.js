@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Worker = mongoose.model('Worker', {
     fname: {
         type: String,
-        required:true
+       
     },
     lname: {
         type: String,
-        required:true
+        
     },
     bdate: {
         type: String,
