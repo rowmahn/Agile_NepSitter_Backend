@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const Worker = mongoose.model('Worker', {
-    Fullname: {
+    Fname: {
+        type: String,
+        required:true
+    },
+    Lname: {
         type: String,
         required:true
     },
@@ -24,10 +28,22 @@ const Worker = mongoose.model('Worker', {
         type: String,
         required:true
     },
-    Availability: {
-        type: String,
-        required:true
-    },
+    AvailabilityMorning: [{
+    type: String,
+    enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','thrusday','Friday','Saturday'],
+    }],
+    AvailabilityEvening: [{
+    type: String,
+     enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','thrusday','Friday','Saturday'],
+     }],
+    AvailabilityAfternoon: [{
+     type: String,
+     enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','thrusday','Friday','Saturday'],
+     }],
+     AvailabilityNight: [{
+     type: String,
+     enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday','thrusday','Friday','Saturday'],
+     }],
     Email: {
         type: String,
         required:true

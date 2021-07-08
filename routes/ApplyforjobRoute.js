@@ -3,18 +3,24 @@ const router = express.Router();
 const Worker = require('../Model/Applyforjob')
 
 router.post('/Worker_insert',function(req, res){
-   const Fullname = req.body.Fullname;
+   const Fname = req.body.Fname;
+   const Lname = req.body.Lname;
    const BirthDate = req.body.BirthDate;
    const Gender = req.body.Gender;
    const PhoneNo = req.body.PhoneNo;
    const Address = req.body.Address;
    const JobCategory = req.body.JobCategory;
-   const Availability = req.body.Availability;
+   const AvailabilityMorning = req.body.AvailabilityMorning;
+   const AvailabilityEvening = req.body.AvailabilityEvening;
+   const AvailabilityAfternoon = req.body.AvailabilityAfternoon;
+   const AvailabilityNight = req.body.AvailabilityNight;
    const Email = req.body.Email;
    const Password = req.body.Password;
    const ProfilePic = req.body.Profilepic;
     const worker = new Worker({Fullname:Fullname, BirthDate:BirthDate, Gender:Gender, PhoneNo:PhoneNo,
-    Address:Address, JobCategory:JobCategory, Availability:Availability, Email:Email, Password:Password,
+    Address:Address, JobCategory:JobCategory, AvailabilityMorning:AvailabilityMorning, AvailabilityNight:
+    AvailabilityNight, AvailabilityAfternoon:AvailabilityAfternoon, AvailabilityEvening:AvailabilityEvening
+    ,Email:Email, Password:Password,
     ProfilePic:ProfilePic});
     worker.save()
     .then(function(result){
