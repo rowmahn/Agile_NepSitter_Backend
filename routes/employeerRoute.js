@@ -13,7 +13,7 @@ router.post('/employer/register',[
     check('Email',"It is not valid email").isEmail(),
     check('Fullname',"Fullname shouldnot be empty").not().isEmpty(),
     check('Password',"password should not be empty!!!").not().isEmpty(),
-    check('Phone',"Phone should not be empty !!").not().isEmpty(),
+    check('Contact',"Phone should not be empty !!").not().isEmpty(),
     
 ],upload.single('Citizenship'),function(req,res){
     
@@ -31,7 +31,7 @@ router.post('/employer/register',[
         const Contact=req.body.Contact;
         // const Image=req.file.filename;
         const Citizenship=req.file.filename;
-        const Gender=req.body.gender;
+        const Gender=req.body.Gender;
         
         bcryptjs.hash(Password,10,function(err,hash){
             const data=new Employeer({
