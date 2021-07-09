@@ -36,8 +36,8 @@ router.post('/applyforjob',function(req, res){
     yourself:yourself, certificate:certificate, gender:gender, province:province,
     study:study, status:status, smoke:smoke, drink:drink, jobcategory:jobcategory,
     availabilityMorning:availabilityMorning
-    // , availabilityEvening:availabilityEvening,
-    // availabilityAfternoon:availabilityAfternoon, availabilityNight:availabilityNight
+    , availabilityEvening:availabilityEvening,
+    availabilityAfternoon:availabilityAfternoon, availabilityNight:availabilityNight
 });
     worker.save()
     .then(function(result){
