@@ -41,8 +41,10 @@ const Employeer=mongoose.model('Employeer',{
         require:true
     },
     Approved:{
+
         type:Boolean,
-        default:false
+       
+
     }
 
 })

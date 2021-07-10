@@ -14,4 +14,7 @@ app.use(cors(
     // {credentials: true, origin: 'http://localhost:3000'}
     ))
 
+const EmployerRoute=require('./routes/employeerRoute')
+app.use(EmployerRoute)
+
 app.listen(90);
