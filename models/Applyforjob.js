@@ -57,12 +57,12 @@ const Worker = mongoose.model('Worker', {
     },
     gender: {
         type: String,
-        required:true
+        // required:true
         
     },
     province: {
         type: String,
-        required:true
+        // required:true
         
     },
     study: {
@@ -86,7 +86,7 @@ const Worker = mongoose.model('Worker', {
     },
     jobcategory: {
         type: String,
-        required:true
+        // required:true
       
     },
     

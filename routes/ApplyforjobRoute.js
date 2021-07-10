@@ -4,11 +4,12 @@ const Worker = require('../models/Applyforjob')
 const {check,validationResult}=require('express-validator')
 const bcryptjs=require('bcryptjs');
 const jwt=require('jsonwebtoken')
+
 const authentication=require('../middlewares/authentication')
 const upload=require('../middlewares/uploads')
 
 router.post('/applyforjob',function(req, res){
-  // console.log("gggh")
+  console.log(req.body)
    const fname = req.body.fname;
    const lname = req.body.lname;
    const bdate = req.body.bdate;
@@ -34,10 +35,10 @@ router.post('/applyforjob',function(req, res){
    const availabilityAfternoon = req.body.availabilityAfternoon;
    const availabilityNight = req.body.availabilityNight;
 
-
+   bcryptjs.hash(password,10,function(err,hash){
     const worker = new Worker({
     fname:fname, lname:lname, bdate:bdate, phone:phone,
-    email:email, password:password, address:address, city:city, district:district,
+    email:email, password:hash, address:address, city:city, district:district,
     yourself:yourself, certificate:certificate, gender:gender, province:province,
     study:study, status:status, smoke:smoke, drink:drink, jobcategory:jobcategory,
     availabilityMorning:availabilityMorning
@@ -54,7 +55,7 @@ router.post('/applyforjob',function(req, res){
       res.status(500).json({message:e, success:false})
     })
 
-
+  })
 })
 
 router.post('/Worker/login',function(req,res){
