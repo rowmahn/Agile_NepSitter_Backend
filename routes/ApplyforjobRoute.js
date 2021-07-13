@@ -77,4 +77,17 @@ router.post('/Worker/login',function(req,res){
       res.status(403).json({message:err})
   })
 })
+
+router.get('/showworkers/all',
+
+function(req,res){
+    Worker.find().select("-password").sort('-createdAT')
+    .then(function(data){
+        
+        res.status(200).json({data,success:true})
+    })
+    .catch(function(e){
+        res.status(400).json({message:e,success:false})
+    })
+})
 module.exports = router;
