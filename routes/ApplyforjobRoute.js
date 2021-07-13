@@ -90,4 +90,16 @@ function(req,res){
         res.status(400).json({message:e,success:false})
     })
 })
+
+router.get('/showworker/details/:_id'),
+function(req,res){
+  Worker.findById({id:req.param._id}).select("-password").sort('-createdAT')
+  .then(function(data){
+      
+      res.status(200).json({data,success:true})
+  })
+  .catch(function(e){
+      res.status(400).json({message:e,success:false})
+  })
+}
 module.exports = router;
