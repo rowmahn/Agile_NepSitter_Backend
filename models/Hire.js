@@ -17,17 +17,17 @@ const Hire=mongoose.model('Hire',{
     Day:[{
         type:String
     }],
-    shift:[{
+    Shift:[{
         type:String
     }],
-    hours:{
+    Hours:{
         type:String
     },
-    createdAt: {
+    CreatedAt: {
         type: Date,
         default: Date.now
     },
-    updatedAt:{
+    UpdatedAt:{
         type: Date,
         default: Date.now
     }
