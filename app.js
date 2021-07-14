@@ -21,6 +21,8 @@ app.use(cors(
 
 const EmployerRoute=require('./routes/employeerRoute')
 app.use(EmployerRoute)
+const HireRoute=require('./routes/HireRoute')
+app.use(HireRoute)
 
 
 app.listen(90);

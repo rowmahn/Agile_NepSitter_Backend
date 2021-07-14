@@ -3,7 +3,8 @@ const router = express.Router();
 const Hire = require('../models/Hire')
 const {check,validationResult}=require('express-validator')
 const authentication=require('../middlewares/authentication')
-const upload=require('../middlewares/uploads')
+const upload=require('../middlewares/uploads');
+
 router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
     const WorkerID=req.params.wid;
     const EmployerID=req.employer._id;
@@ -29,5 +30,18 @@ router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
                 res.status(500).json({message:e,success:false})
                 
             })
+})
+router.get('/getmybooking',authentication.verifyEmployer,function(req,res){
+    const EmployerID=req.employer_id
+    Hire.find({EmployerID:EmployerID})
+    .then(function(data){
+        res.status(201).json({success:true,data})
+
+    })
+    .catch(function(e){
+        
+        res.status(500).json({message:e,success:false})
+        
+    })
 })
 module.exports = router;
