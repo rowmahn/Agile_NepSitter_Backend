@@ -25,7 +25,10 @@ const Hire=mongoose.model('Hire',{
     },
     Package:{
         type:String,
-        enum:['Month','Week','Day']
+        enum:['Monthly','Weekly','Daily','Hourly']
+    },
+    Date:{
+        type:String
     },
     CreatedAt: {
         type: Date,

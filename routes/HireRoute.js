@@ -9,6 +9,7 @@ router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
     const WorkerID=req.params.wid;
     const EmployerID=req.employer._id;
     const Location=req.body.Location;
+    const Date=req.body.Date
     const Day =req.body.Day;
     const Shift=req.body.Shift;
     const Hours=req.body.Hours;
@@ -16,6 +17,7 @@ router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
     const data=new Hire({
         WorkerID:WorkerID,
         EmployerID:EmployerID,
+        Date:Date,
         Location:Location,
         Day:Day,
         Shift:Shift,
@@ -50,6 +52,7 @@ router.put('/updatebooking/:id/:employerID',authentication.verifyEmployer,functi
   const EmployerID=req.employer._id  
   const id=req.params.id
   const Location=req.body.Location
+  const Date=req.body.Date
   const Day =req.body.Day
   const Shift=req.body.Shift
   const Hours=req.body.Hours
@@ -60,7 +63,8 @@ router.put('/updatebooking/:id/:employerID',authentication.verifyEmployer,functi
             Day:Day,
             Shift:Shift,
             Hours:Hours,
-            Package:Package
+            Package:Package,
+           Date:Date
         })
         .then(function(data){
             res.status(201).json({success:true,data})
