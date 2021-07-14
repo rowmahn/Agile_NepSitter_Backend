@@ -12,13 +12,15 @@ router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
     const Day =req.body.Day;
     const Shift=req.body.Shift;
     const Hours=req.body.Hours;
+    const Package=req.body.Package;
     const data=new Hire({
         WorkerID:WorkerID,
         EmployerID:EmployerID,
         Location:Location,
         Day:Day,
         Shift:Shift,
-        Hours:Hours
+        Hours:Hours,
+        Package:Package
     })
             data.save()
             .then(function(data){
@@ -32,7 +34,7 @@ router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
             })
 })
 router.get('/getmybooking',authentication.verifyEmployer,function(req,res){
-    const EmployerID=req.employer_id
+    const EmployerID=req.employer.catch_id
     Hire.find({EmployerID:EmployerID})
     .then(function(data){
         res.status(201).json({success:true,data})
@@ -43,5 +45,32 @@ router.get('/getmybooking',authentication.verifyEmployer,function(req,res){
         res.status(500).json({message:e,success:false})
         
     })
+})
+router.put('/updatebooking/:id/:employerID',authentication.verifyEmployer,function(req,res){
+  const EmployerID=req.employer._id  
+  const id=req.params.id
+  const Location=req.body.Location
+  const Day =req.body.Day
+  const Shift=req.body.Shift
+  const Hours=req.body.Hours
+  const Package=req.body.Package
+    if(EmployerID===req.params.employerID){
+        Hire.findByIdAndUpdate({_id:id},{
+            Location:Location,
+            Day:Day,
+            Shift:Shift,
+            Hours:Hours,
+            Package:Package
+        })
+        .then(function(data){
+            res.status(201).json({success:true,data})
+    
+        })
+        .catch(function(e){
+            
+            res.status(500).json({message:e,success:false})
+            
+        })
+    }
 })
 module.exports = router;
