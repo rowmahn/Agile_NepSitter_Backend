@@ -6,12 +6,13 @@ const authentication=require('../middlewares/authentication')
 const upload=require('../middlewares/uploads');
 
 router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
+    console.log(req.body)
     const WorkerID=req.params.wid;
     const EmployerID=req.employer._id;
     const Location=req.body.Location;
     const Date=req.body.Date
     const Day =req.body.Day;
-    const Shift=req.body.Shift;
+    // const Shift=req.body.Shift;
     const Hours=req.body.Hours;
     const Package=req.body.Package;
     const data=new Hire({
@@ -20,7 +21,7 @@ router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
         Date:Date,
         Location:Location,
         Day:Day,
-        Shift:Shift,
+        // Shift:Shift,
         Hours:Hours,
         Package:Package
     })
@@ -30,13 +31,13 @@ router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
 
             })
             .catch(function(e){
-                
+                // console.log(e)
                 res.status(500).json({message:e,success:false})
                 
             })
 })
 router.get('/getmybooking',authentication.verifyEmployer,function(req,res){
-    const EmployerID=req.employer.catch_id
+    const EmployerID=req.employer._id
     Hire.find({EmployerID:EmployerID})
     .then(function(data){
         res.status(201).json({success:true,data})

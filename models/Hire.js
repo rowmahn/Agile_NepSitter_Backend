@@ -17,15 +17,15 @@ const Hire=mongoose.model('Hire',{
     Day:[{
         type:String
     }],
-    Shift:[{
-        type:String
-    }],
+    // Shift:[{
+    //     type:String
+    // }],
     Hours:{
         type:String
     },
     Package:{
         type:String,
-        enum:['Monthly','Weekly','Daily','Hourly']
+        // enum:['Monthly','Weekly','Daily','Hourly']
     },
     Date:{
         type:String
