@@ -78,10 +78,10 @@ router.put('/updatebooking/:id/:employerID',authentication.verifyEmployer,functi
         })
     }
 })
-router.delete('/cancelbooking/:id/:empid',authentication.verifyEmployer,function(req,res){
+router.delete('/cancelbooking/:id',authentication.verifyEmployer,function(req,res){
     const id=req.params.id
-    const EmployerId=req.employer._id
-    if(EmployerId===req.params.empid){
+    console.log(req.params)
+   
         Hire.deleteOne({_id:id})
         .then(function(data){
             res.status(201).json({success:true,data})
@@ -92,6 +92,6 @@ router.delete('/cancelbooking/:id/:empid',authentication.verifyEmployer,function
             res.status(500).json({message:e,success:false})
             
         })
-    }
+    
 })
 module.exports = router;
