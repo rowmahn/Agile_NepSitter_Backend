@@ -49,7 +49,21 @@ router.get('/getmybooking',authentication.verifyEmployer,function(req,res){
         
     })
 })
-router.put('/updatebooking/:id/:employerID',authentication.verifyEmployer,function(req,res){
+router.get('/getsinglebooking/:id',function(req,res){
+    
+    Hire.findById({_id:req.params.id})
+    .then(function(booking){
+        res.status(201).json({success:true,booking})
+        
+
+    })
+    .catch(function(e){
+        
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
+router.put('/updatebooking/:id',authentication.verifyEmployer,function(req,res){
   const EmployerID=req.employer._id  
   const id=req.params.id
   const Location=req.body.Location
@@ -58,7 +72,7 @@ router.put('/updatebooking/:id/:employerID',authentication.verifyEmployer,functi
   const Shift=req.body.Shift
   const Hours=req.body.Hours
   const Package=req.body.Package
-    if(EmployerID===req.params.employerID){
+    
         Hire.findByIdAndUpdate({_id:id},{
             Location:Location,
             Day:Day,
@@ -76,7 +90,7 @@ router.put('/updatebooking/:id/:employerID',authentication.verifyEmployer,functi
             res.status(500).json({message:e,success:false})
             
         })
-    }
+    
 })
 router.delete('/cancelbooking/:id',authentication.verifyEmployer,function(req,res){
     const id=req.params.id
