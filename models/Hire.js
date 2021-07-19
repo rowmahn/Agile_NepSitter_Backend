@@ -14,6 +14,10 @@ const Hire=mongoose.model('Hire',{
         type:String,
         require:true
     },
+    Time:{
+        type:String,
+        require:true
+    },
     Day:[{
         type:String
     }],

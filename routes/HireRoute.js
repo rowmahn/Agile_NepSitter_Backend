@@ -10,6 +10,7 @@ router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
     const WorkerID=req.params.wid;
     const EmployerID=req.employer._id;
     const Location=req.body.Location;
+    const Time = req.body.Time
     const Date=req.body.Date
     const Day =req.body.Day;
     // const Shift=req.body.Shift;
@@ -20,6 +21,7 @@ router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
         EmployerID:EmployerID,
         Date:Date,
         Location:Location,
+        Time:Time,
         Day:Day,
         // Shift:Shift,
         Hours:Hours,
