@@ -102,4 +102,17 @@ function(req,res){
       res.status(400).json({message:e,success:false})
   })
 }
+
+router.get('/search/:query',function(req,res){
+   
+  let searchpattern=new RegExp("^"+req.params.query)
+  Worker.find({fname:{$regex:searchpattern}})
+  .then(data=>{
+      res.status(200).json({data})
+  })
+  .catch(err=>{
+      res.status(400).json({message:"not found details"})
+  })
+})
+
 module.exports = router;
