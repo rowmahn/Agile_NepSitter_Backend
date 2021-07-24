@@ -23,4 +23,18 @@ router.post('/savework/:EmpID',authentication.verifyWorker,function(req,res){
         
     })
 })
+router.get('/getworkinghour/:wid',authentication.verifyEmployer,function(req,res){
+    const WorkerID=req.params.wid;
+    const EmployerID=req.employer._id;
+    Work.find({WorkerID:WorkerID,EmployerID:EmployerID})
+    .then(function(data){
+        res.status(201).json({success:true,data})
+
+    })
+    .catch(function(e){
+        // console.log(e)
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
 module.exports = router;
