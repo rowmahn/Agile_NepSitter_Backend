@@ -23,6 +23,8 @@ const EmployerRoute=require('./routes/employeerRoute')
 app.use(EmployerRoute)
 const HireRoute=require('./routes/HireRoute')
 app.use(HireRoute)
+const WorkRoute=require('./routes/WorkRoute')
+app.use(WorkRoute)
 
 
 app.listen(90);

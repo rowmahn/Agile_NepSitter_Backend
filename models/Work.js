@@ -15,8 +15,9 @@ const Work=mongoose.model('WORK',{
         default:false
     },
     Workinghours:{
-        type:String,
-        require:true
+        type:Number,
+        require:true,
+        default:0
     },
     CreatedAt: {
         type: Date,
