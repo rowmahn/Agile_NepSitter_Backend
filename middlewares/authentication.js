@@ -32,7 +32,7 @@ module.exports.verifyEmployer=function(req,res,next){
 }
 
 module.exports.verifyWorker=function(req,res,next){
-    
+    console.log(req.body)
      
     try{
         
