@@ -28,6 +28,10 @@ const Report=mongoose.model('Report',{
     hireID:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Hire'
+    },
+    approved:{
+        type:Boolean,
+        default:false
     }
 })
 module.exports=Report
