@@ -25,6 +25,7 @@ const HireRoute=require('./routes/HireRoute')
 app.use(HireRoute)
 const WorkRoute=require('./routes/WorkRoute')
 app.use(WorkRoute)
-
+const NotificationRoute=require('./routes/NotificationRoute')
+app.use(NotificationRoute)
 
 app.listen(90);

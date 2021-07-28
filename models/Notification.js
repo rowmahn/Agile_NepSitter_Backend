@@ -7,7 +7,7 @@ const Notification=mongoose.model('Notification',{
         type: String,
         required: [true, 'Notfication Title']
       },
-      body: {
+      message: {
         type: String,
         required: [true, 'Notification Message']
       },
@@ -20,15 +20,21 @@ const Notification=mongoose.model('Notification',{
         default:false
       
       },
-      EmployerID:{
+      hireID:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'Employeer'
+        ref:'Hire'
         
     },
-    WorkerID:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Worker'
-        
-    }
+    EmployerID:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Employeer'
+      
+        },
+        WorkerID:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Worker'
+            
+        }
+
 })
 module.exports=Notification
