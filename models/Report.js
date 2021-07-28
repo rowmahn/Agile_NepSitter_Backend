@@ -16,6 +16,10 @@ const Report=mongoose.model('Report',{
     },
     issue:{
         type: String
-    }
+    },
+    CreatedAt: {
+        type: Date,
+        default: Date.now
+    },
 })
 module.exports=Report

@@ -23,4 +23,17 @@ router.post('/worker/report/:wid', function(req,res){
         
     })
 })
+router.get('/worker/reports',function(req,res,next){
+
+    Report.find().sort('-CreatedAt')
+    .then(function(data){
+        
+        res.status(200).json({data,success:true})
+    })
+    .catch(function(e){
+        res.status(400).json({message:e,success:false})
+    })
+    
+
+})
 module.exports = router;
