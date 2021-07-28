@@ -1,13 +1,11 @@
 const mongoose=require('mongoose');
 const Report=mongoose.model('Report',{
-    empid:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Employeer'
+    byemployeremail:{
+        type:String
         
     },
-    wid:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Worker'
+    toworkeremail:{
+        type:String
         
     },
     title:{
@@ -21,5 +19,15 @@ const Report=mongoose.model('Report',{
         type: Date,
         default: Date.now
     },
+    byworkeremail:{
+        type:String
+    },
+    toemployeremail:{
+        type:String
+    },
+    hireID:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Hire'
+    }
 })
 module.exports=Report
