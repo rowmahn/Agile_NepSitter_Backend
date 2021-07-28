@@ -16,8 +16,19 @@ const Notification=mongoose.model('Notification',{
         default: Date.now,
       },
       views: {
-        type: String
+        type:Boolean,
+        default:false
       
-      }
+      },
+      EmployerID:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Employeer'
+        
+    },
+    WorkerID:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Worker'
+        
+    }
 })
 module.exports=Notification
