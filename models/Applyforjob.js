@@ -111,6 +111,10 @@ const Worker = mongoose.model('Worker', {
     updatedAt:{
         type: Date,
         default: Date.now
+    },
+    approved:{
+        type:Boolean,
+        default:false
     }
 })
     module.exports = Worker;
