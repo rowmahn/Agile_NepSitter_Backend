@@ -43,7 +43,7 @@ const Employeer=mongoose.model('Employeer',{
     Approved:{
 
         type:Boolean,
-       
+       default:false
 
     }
 

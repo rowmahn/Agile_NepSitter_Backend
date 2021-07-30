@@ -71,6 +71,30 @@ function(req,res){
     // }
    
 })
+router.get('/unapproved/employer',function(req,res){
+    Employeer.find({Approved:false})
+    .then(function(data){
+        res.status(201).json({success:true,data})
+
+    })
+    .catch(function(e){
+        
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
+router.put('/approve/employer/:id',function(rea,res){
+    Employeer.findByIdAndUpdate({_id:req.param.id},{Approved:true})
+    .then(function(data){
+        res.status(203).json({success:true,data})
+
+    })
+    .catch(function(e){
+        
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
 
 router.post('/user/login',function(req,res){
     Employeer.findOne({Email:req.body.Email})
