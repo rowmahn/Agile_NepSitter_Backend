@@ -72,7 +72,7 @@ function(req,res){
    
 })
 router.get('/unapproved/employer',function(req,res){
-    Employeer.find({Approved:false})
+    Employeer.find({Approved:false}).sort('-CreatedAt').select('-Password')
     .then(function(data){
         res.status(201).json({success:true,data})
 
