@@ -103,7 +103,7 @@ function(req,res){
   })
 }
 router.get('/unapproved',function(req,res){
-  Worker.find({approved:false})
+  Worker.find({approved:false}).sort('-createdAt').select('-password')
       .then(function(data){
           
         res.status(200).json({data,success:true})
