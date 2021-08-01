@@ -74,6 +74,9 @@ router.post('/Worker/login',function(req,res){
        res.status(200).json({success:true,token:token,message:"login Successful", data})
     })
     }
+    else{
+      res.status(404).json({message:"unapproved user",success:false})
+    }
       
      
       
