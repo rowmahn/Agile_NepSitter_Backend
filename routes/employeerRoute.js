@@ -71,24 +71,62 @@ function(req,res){
     // }
    
 })
+router.get('/unapproved/employer',function(req,res){
+    Employeer.find({Approved:false}).sort('-CreatedAt').select('-Password')
+    .then(function(data){
+        res.status(201).json({success:true,data})
 
+    })
+    .catch(function(e){
+        
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
+router.put('/approve/employer/:id',function(req,res){
+    Employeer.findByIdAndUpdate({_id:req.param.id},{Approved:true})
+    .then(function(data){
+        res.status(203).json({success:true,data})
+
+    })
+    .catch(function(e){
+        
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
+router.delete('/denyemployer/:id',function(req,res){
+    Employeer.deleteOne({_id:req.params.id})
+    .then(function(data){
+        res.status(203).json({success:true,data})
+
+    })
+    .catch(function(e){
+        
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
 router.post('/user/login',function(req,res){
     Employeer.findOne({Email:req.body.Email})
     .then(function(userData){
         if(userData===null){
            return res.status(401).json({message:"Authentication fail"})
         }
-        // else if(userData.Approved===false)
-        // {
-        //     return res.status(403).json({message:"unApproved user"})
-        // }
-        bcryptjs.compare(req.body.Password,userData.Password,function(err,cresult){
-            if(cresult===false){
-              return  res.status(401).json({message:" unAuthorized user"})
-            }
-           const token= jwt.sign({uid:userData._id},'secretkey');
-           res.status(200).json({success:true,token:token,message:"login Successful", userData})
-        })
+        const approved=data.Approved
+        if(approved===true){
+            bcryptjs.compare(req.body.Password,userData.Password,function(err,cresult){
+                if(cresult===false){
+                  return  res.status(401).json({message:" unAuthorized user"})
+                }
+               const token= jwt.sign({uid:userData._id},'secretkey');
+               res.status(200).json({success:true,token:token,message:"login Successful", userData})
+            })
+        }
+        else{
+            res.status(404).json({message:"unapproved user",success:false})
+          }
+       
     })
     .catch(function(err){
         res.status(403).json({message:err})

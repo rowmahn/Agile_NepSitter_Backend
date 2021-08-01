@@ -43,8 +43,15 @@ const Employeer=mongoose.model('Employeer',{
     Approved:{
 
         type:Boolean,
-       
+       default:false
 
+    },CreatedAt: {
+        type: Date,
+        default: Date.now
+    },
+    UpdatedAt:{
+        type: Date,
+        default: Date.now
     }
 
 })
