@@ -83,7 +83,7 @@ router.get('/unapproved/employer',function(req,res){
         
     })
 })
-router.put('/approve/employer/:id',function(rea,res){
+router.put('/approve/employer/:id',function(req,res){
     Employeer.findByIdAndUpdate({_id:req.param.id},{Approved:true})
     .then(function(data){
         res.status(203).json({success:true,data})
@@ -95,7 +95,18 @@ router.put('/approve/employer/:id',function(rea,res){
         
     })
 })
+router.delete('/denyemployer/:id',function(req,res){
+    Employeer.deleteOne({_id:req.params.id})
+    .then(function(data){
+        res.status(203).json({success:true,data})
 
+    })
+    .catch(function(e){
+        
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
 router.post('/user/login',function(req,res){
     Employeer.findOne({Email:req.body.Email})
     .then(function(userData){
