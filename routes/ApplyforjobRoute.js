@@ -102,7 +102,26 @@ function(req,res){
       res.status(400).json({message:e,success:false})
   })
 }
-
+router.get('/unapproved',function(req,res){
+  Worker.find({approved:false}).sort('-createdAt').select('-password')
+      .then(function(data){
+          
+        res.status(200).json({data,success:true})
+    })
+    .catch(function(e){
+        res.status(400).json({message:e,success:false})
+    })
+})
+router.put('/approveworker/:id',function(req,res){
+  Worker.findByIdAndUpdate({_id:req.params.id},{approved:true})
+  .then(function(data){
+          
+    res.status(203).json({data,success:true})
+})
+.catch(function(e){
+    res.status(400).json({message:e,success:false})
+})
+})
 router.get('/search/:query',function(req,res){
    
   let searchpattern=new RegExp("^"+req.params.query)
