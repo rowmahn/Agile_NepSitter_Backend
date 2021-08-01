@@ -142,4 +142,14 @@ router.get('/search/:query',function(req,res){
   })
 })
 
+router.delete('/denyworker/:id',function(req,res){
+  Worker.deleteOne({_id:req.params.id})
+  .then(data=>{
+    res.status(200).json({data})
+    })
+    .catch(err=>{
+        res.status(400).json({message:"not found details"})
+    })
+})
+
 module.exports = router;
