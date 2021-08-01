@@ -61,17 +61,22 @@ router.post('/applyforjob',function(req, res){
 router.post('/Worker/login',function(req,res){
   Worker.findOne({email:req.body.email})
   .then(function(data){
-      if(data===null){
-         return res.status(401).json({message:"Authentication fail"})
-      }
-     
+    if(data===null){
+      return res.status(401).json({message:"Authentication fail"})
+   }
+    const approved=data.approved
+    if(approved===true){
       bcryptjs.compare(req.body.password,data.password,function(err,cresult){
-          if(cresult===false){
-            return  res.status(401).json({message:" unAuthorized user"})
-          }
-         const token= jwt.sign({wid:data._id},'secretkey');
-         res.status(200).json({success:true,token:token,message:"login Successful", data})
-      })
+        if(cresult===false){
+          return  res.status(401).json({message:" unAuthorized user"})
+        }
+       const token= jwt.sign({wid:data._id},'secretkey');
+       res.status(200).json({success:true,token:token,message:"login Successful", data})
+    })
+    }
+      
+     
+      
   })
   .catch(function(err){
       res.status(403).json({message:err})
