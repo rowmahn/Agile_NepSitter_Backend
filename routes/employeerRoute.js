@@ -84,13 +84,14 @@ router.get('/unapproved/employer',function(req,res){
     })
 })
 router.put('/approve/employer/:id',function(req,res){
-    Employeer.findByIdAndUpdate({_id:req.param.id},{Approved:true})
+    console.log(req.params.id)
+    Employeer.findByIdAndUpdate({_id:req.params.id},{Approved:true})
     .then(function(data){
         res.status(203).json({success:true,data})
 
     })
     .catch(function(e){
-        
+        console.log(e)
         res.status(500).json({message:e,success:false})
         
     })
@@ -113,7 +114,7 @@ router.post('/user/login',function(req,res){
         if(userData===null){
            return res.status(401).json({message:"Authentication fail"})
         }
-        const approved=data.Approved
+        const approved=userData.Approved
         if(approved===true){
             bcryptjs.compare(req.body.Password,userData.Password,function(err,cresult){
                 if(cresult===false){
@@ -129,6 +130,7 @@ router.post('/user/login',function(req,res){
        
     })
     .catch(function(err){
+        console.log(err)
         res.status(403).json({message:err})
     })
 })
