@@ -152,7 +152,7 @@ router.delete('/denyworker/:id',function(req,res){
     })
 })
 router.get('/worker/profile',authentication.verifyWorker, function(req,res){
-  Worker.find({_id:req.worker._id})
+  Worker.findById({_id:req.worker._id})
   .then((data)=>{
       res.status(200).json({data,success:true})
   })
