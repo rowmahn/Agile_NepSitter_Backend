@@ -151,7 +151,7 @@ router.delete('/denyworker/:id',function(req,res){
         res.status(400).json({message:"not found details"})
     })
 })
-router.get('/profile',authentication.verifyWorker, function(req,res){
+router.get('/worker/profile',authentication.verifyWorker, function(req,res){
   Worker.find({_id:req.worker._id})
   .then((data)=>{
       res.status(200).json({data,success:true})
@@ -161,7 +161,7 @@ router.get('/profile',authentication.verifyWorker, function(req,res){
   })
 })
 
-router.put('/worker/profilepic',authentication.verifyWorker, upload.single('image'), function(req,res){
+router.put('/worker/upprofilepic',authentication.verifyWorker, upload.single('image'), function(req,res){
   if(req.file==undefined){
     return res.status(400).json({message:"invalid image Type!!"})
   }

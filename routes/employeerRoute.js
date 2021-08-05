@@ -9,25 +9,9 @@ const upload=require('../middlewares/uploads')
 
 
 router.post('/employer/register',
-// [
-//     check('Email',"Email is required!").not().isEmpty(),
-//     check('Email',"It is not valid email").isEmail(),
-//     check('Fullname',"Fullname shouldnot be empty").not().isEmpty(),
-//     check('Password',"password should not be empty!!!").not().isEmpty(),
-//     check('Contact',"Phone should not be empty !!").not().isEmpty(),
-    
-// ],
-// upload.single('Citizenship'),
+
 function(req,res){
-    
-    // const errors=validationResult(req);
-    
-// console.log(req.body)
-    // if(errors.isEmpty()){
-        // if(req.file==undefined){
-        //     return res.status(400).json({message:"invalid image Type!!"})
-        // }
-        
+     
         const Email=req.body.Email;
         
         const Fullname=req.body.Fullname;
@@ -35,7 +19,6 @@ function(req,res){
         const Location=req.body.Location;
         const Password=req.body.Password;
         const Contact=req.body.Contact;
-        // const Image=req.file.filename;
         const Citizenship=req.body.Citizenship;
         const Gender=req.body.Gender;
         
@@ -45,7 +28,7 @@ function(req,res){
                 Contact:Contact,
                 Email:Email,
                 Password:hash,
-                // Image:Image,
+               
                 Gender:Gender,
                 Age:Age,
                 Location:Location,
