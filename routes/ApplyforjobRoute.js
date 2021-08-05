@@ -120,6 +120,17 @@ router.get('/unapproved',function(req,res){
         res.status(400).json({message:e,success:false})
     })
 })
+
+router.get('/approved',function(req,res){
+  Worker.find({approved:true}).sort('-createdAt').select('-password')
+      .then(function(data){
+          
+        res.status(200).json({data,success:true})
+    })
+    .catch(function(e){
+        res.status(400).json({message:e,success:false})
+    })
+})
 router.put('/approveworker/:id',function(req,res){
   Worker.findByIdAndUpdate({_id:req.params.id},{approved:true})
   .then(function(data){

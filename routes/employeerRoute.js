@@ -83,6 +83,20 @@ router.get('/unapproved/employer',function(req,res){
         
     })
 })
+
+
+router.get('/approved/employer',function(req,res){
+    Employeer.find({Approved:true}).sort('-CreatedAt').select('-Password')
+    .then(function(data){
+        res.status(201).json({success:true,data})
+
+    })
+    .catch(function(e){
+        
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
 router.put('/approve/employer/:id',function(req,res){
     console.log(req.params.id)
     Employeer.findByIdAndUpdate({_id:req.params.id},{Approved:true})
