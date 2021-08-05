@@ -152,4 +152,24 @@ router.delete('/denyworker/:id',function(req,res){
     })
 })
 
+router.put('/worker/updateprofile',authentication.verifyWorker,function(req,res){
+  const fname=req.body.fname
+  const lname=req.body.lname
+  const bdate=req.body.bdate
+  const phone=req.body.phone
+  const address=req.body.address
+  const province = req.body.province;
+  const city = req.body.city;
+   const district = req.body.district;
+  Worker.findByIdAndUpdate({_id:req.worker._id},{ fname:fname, lname:lname, bdate:bdate, phone:phone,
+    address:address, city:city, district:district,province:province})
+    .then((data)=>{
+      res.status(203).json({data,success:true})
+  })
+  .catch((error)=>{
+      res.status(404).json({error,success:false})
+  })
+})
+
+
 module.exports = router;
