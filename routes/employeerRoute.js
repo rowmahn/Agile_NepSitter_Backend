@@ -108,6 +108,29 @@ router.delete('/denyemployer/:id',function(req,res){
         
     })
 })
+router.get('/employer/profile',authentication.verifyEmployer,(req,res)=>{
+    Employeer.findById({_id:req.employer._id})
+    .then((data)=>{
+        res.status(200).json({data,success:true})
+    })
+    .catch((error)=>{
+        res.status(404).json({error,success:false})
+    })
+})
+router.put('/employer/upprofilepic',authentication.verifyEmployer,upload.single('Image'),(req,res)=>{
+    if(req.file==undefined){
+        return res.status(400).json({message:"invalid image Type!!"})
+      }
+      const Image=req.file.filename
+      Employeer.findByIdAndUpdate({_id:req.employer._id},{Image:Image})
+      .then((data)=>{
+        res.status(203).json({data,success:true})
+    })
+    .catch((error)=>{
+        res.status(404).json({error,success:false})
+    })
+
+})
 router.post('/user/login',function(req,res){
     Employeer.findOne({Email:req.body.Email})
     .then(function(userData){
