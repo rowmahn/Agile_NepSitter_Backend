@@ -141,4 +141,25 @@ router.post('/user/login',function(req,res){
     })
 })
 
+router.put('/employer/updateprofile',authentication.verifyEmployer,(req,res) =>{
+    const Fullname=req.body.Fullname;
+        const Age=req.body.Age;
+        const Location=req.body.Location;
+        const Contact=req.body.Contact;
+        const Gender=req.body.Gender;
+        Employeer.findByIdAndUpdate({_id:req.employer._id},{
+            Fullname:Fullname,
+            Contact:Contact, 
+            Gender:Gender,
+            Age:Age,
+            Location:Location
+        })
+        .then((data)=>{
+            res.status(203).json({data,success:true})
+        })
+        .catch((error)=>{
+            res.status(404).json({error,success:false})
+        })
+})
+
 module.exports=router
