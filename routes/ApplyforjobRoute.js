@@ -151,5 +151,28 @@ router.delete('/denyworker/:id',function(req,res){
         res.status(400).json({message:"not found details"})
     })
 })
+router.get('/profile',authentication.verifyWorker, function(req,res){
+  Worker.find({_id:req.worker._id})
+  .then((data)=>{
+      res.status(200).json({data,success:true})
+  })
+  .catch((error)=>{
+      res.status(404).json({error,success:false})
+  })
+})
+
+router.put('/worker/profilepic',authentication.verifyWorker, upload.single('image'), function(req,res){
+  if(req.file==undefined){
+    return res.status(400).json({message:"invalid image Type!!"})
+  }
+  const image=req.file.filename
+  Worker.findByIdAndUpdate({_id:req.worker._id},{image:image})
+    .then((data)=>{
+        res.status(203).json({data,success:true})
+    })
+    .catch((error)=>{
+        res.status(404).json({error,success:false})
+    })
+})
 
 module.exports = router;

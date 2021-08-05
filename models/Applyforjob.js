@@ -115,6 +115,9 @@ const Worker = mongoose.model('Worker', {
     approved:{
         type:Boolean,
         default:false
+    },
+    image:{
+        type:String
     }
 })
     module.exports = Worker;
