@@ -11,6 +11,8 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 const db=require('./database/db')
 
+const port = process.env.port || 90;
+
 
 
 app.use(cors(
@@ -31,4 +33,5 @@ const ReportRoute=require('./routes/ReportRoute')
 app.use(ReportRoute)
 
 
-app.listen(90);
+app.listen(port, ()=>console.log("App listening on port "+ port )
+);
