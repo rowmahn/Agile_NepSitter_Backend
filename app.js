@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 const db=require('./database/db')
 
-const port = process.env.port || 90;
+const port = process.env.port || 92;
 
 
 
