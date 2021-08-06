@@ -10,12 +10,12 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 const db=require('./database/db')
 
-const port = process.env.port || 4000;
+const port = process.env.port || 90;
 
 
 
 app.use(cors(
-    // {credentials: true, origin: 'http://localhost:90'}
+    // {credentials: true, origin: 'http://localhost:3000'}
     ))
     
 
