@@ -31,6 +31,8 @@ const NotificationRoute=require('./routes/NotificationRoute')
 app.use(NotificationRoute)
 const ReportRoute=require('./routes/ReportRoute')
 app.use(ReportRoute)
+const ApplyforjobRoute=require('./routes/ApplyforjobRoute')
+app.use(ApplyforjobRoute)
 
 
 app.listen(port, ()=>console.log("App listening on port "+ port )
