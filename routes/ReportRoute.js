@@ -51,25 +51,38 @@ router.get('/worker/reports',function(req,res,next){
     
 
 })
-router.post('/employer/report/:empid', function(req,res){
-    const empid=req.params.empid;
+router.post('/employer/report/:hid', function(req,res){
+    console.log(req.body.title)
+    const hireID=req.params.hid;
     const title= req.body.title;
     const issue= req.body.issue;
-    const data=new Report({
-        empid:empid,
-        title:title, 
-        issue:issue
-    })
-    data.save()
-    .then(function(data){
-        res.status(201).json({success:true,data})
+    Hire.findById({_id:hireID}).populate('EmployerID').populate('WorkerID')
+    .then(function(result){
+        const toemployeremail=result.EmployerID.Email
+        const byworkeremail=result.WorkerID.Email
+        const data=new Report({
+            hireID:hireID,
+            title:title, 
+            issue:issue,
+            toemployeremail:toemployeremail,
+            byworkeremail:byworkeremail
+        })
+        data.save()
+        .then(function(data){
+            res.status(201).json({success:true,data})
+    
+        })
+        .catch(function(err){
+           
+            res.status(500).json({message:err,success:false})
+            
+        })
 
     })
     .catch(function(e){
-       
-        res.status(500).json({message:e,success:false})
-        
+        res.status(404).json({message:"hireid not found",success:false})
     })
+    
 })
 router.get('/employer/reports',function(req,res,next){
 
