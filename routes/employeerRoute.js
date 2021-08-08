@@ -9,25 +9,9 @@ const upload=require('../middlewares/uploads')
 
 
 router.post('/employer/register',
-// [
-//     check('Email',"Email is required!").not().isEmpty(),
-//     check('Email',"It is not valid email").isEmail(),
-//     check('Fullname',"Fullname shouldnot be empty").not().isEmpty(),
-//     check('Password',"password should not be empty!!!").not().isEmpty(),
-//     check('Contact',"Phone should not be empty !!").not().isEmpty(),
-    
-// ],
-// upload.single('Citizenship'),
+
 function(req,res){
-    
-    // const errors=validationResult(req);
-    
-// console.log(req.body)
-    // if(errors.isEmpty()){
-        // if(req.file==undefined){
-        //     return res.status(400).json({message:"invalid image Type!!"})
-        // }
-        
+     
         const Email=req.body.Email;
         
         const Fullname=req.body.Fullname;
@@ -35,7 +19,6 @@ function(req,res){
         const Location=req.body.Location;
         const Password=req.body.Password;
         const Contact=req.body.Contact;
-        // const Image=req.file.filename;
         const Citizenship=req.body.Citizenship;
         const Gender=req.body.Gender;
         
@@ -45,7 +28,7 @@ function(req,res){
                 Contact:Contact,
                 Email:Email,
                 Password:hash,
-                // Image:Image,
+               
                 Gender:Gender,
                 Age:Age,
                 Location:Location,
@@ -122,6 +105,29 @@ router.delete('/denyemployer/:id',function(req,res){
         
     })
 })
+router.get('/employer/profile',authentication.verifyEmployer,(req,res)=>{
+    Employeer.findById({_id:req.employer._id})
+    .then((data)=>{
+        res.status(200).json({data,success:true})
+    })
+    .catch((error)=>{
+        res.status(404).json({error,success:false})
+    })
+})
+router.put('/employer/upprofilepic',authentication.verifyEmployer,upload.single('Image'),(req,res)=>{
+    if(req.file==undefined){
+        return res.status(400).json({message:"invalid image Type!!"})
+      }
+      const Image=req.file.filename
+      Employeer.findByIdAndUpdate({_id:req.employer._id},{Image:Image})
+      .then((data)=>{
+        res.status(203).json({data,success:true})
+    })
+    .catch((error)=>{
+        res.status(404).json({error,success:false})
+    })
+
+})
 router.post('/user/login',function(req,res){
     Employeer.findOne({Email:req.body.Email})
     .then(function(userData){
@@ -147,6 +153,27 @@ router.post('/user/login',function(req,res){
         console.log(err)
         res.status(403).json({message:err})
     })
+})
+
+router.put('/employer/updateprofile',authentication.verifyEmployer,(req,res) =>{
+    const Fullname=req.body.Fullname;
+        const Age=req.body.Age;
+        const Location=req.body.Location;
+        const Contact=req.body.Contact;
+        const Gender=req.body.Gender;
+        Employeer.findByIdAndUpdate({_id:req.employer._id},{
+            Fullname:Fullname,
+            Contact:Contact, 
+            Gender:Gender,
+            Age:Age,
+            Location:Location
+        })
+        .then((data)=>{
+            res.status(203).json({data,success:true})
+        })
+        .catch((error)=>{
+            res.status(404).json({error,success:false})
+        })
 })
 
 module.exports=router
