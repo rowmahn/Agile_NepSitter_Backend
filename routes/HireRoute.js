@@ -40,7 +40,22 @@ router.post('/hireworker/:wid',authentication.verifyEmployer,function(req,res){
 })
 router.get('/getmybooking',authentication.verifyEmployer,function(req,res){
     const EmployerID=req.employer._id
-    Hire.find({EmployerID:EmployerID})
+    Hire.find({EmployerID:EmployerID}).populate('WorkerID')
+    .then(function(data){
+        res.status(201).json({success:true,data})
+
+    })
+    .catch(function(e){
+        
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
+
+
+router.get('/worker/getmybooking',authentication.verifyWorker,function(req,res){
+    const WorkerID=req.worker._id
+    Hire.find({WorkerID:WorkerID}).populate('EmployerID')
     .then(function(data){
         res.status(201).json({success:true,data})
 
@@ -110,4 +125,7 @@ router.delete('/cancelbooking/:id',authentication.verifyEmployer,function(req,re
         })
     
 })
+
+
+
 module.exports = router;
