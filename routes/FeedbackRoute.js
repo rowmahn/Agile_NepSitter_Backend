@@ -51,3 +51,4 @@ router.get('/worker/rating/:wid',function(req,res,next){
     
 
 })
+module.exports = router;
