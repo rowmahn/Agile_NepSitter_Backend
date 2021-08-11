@@ -4,13 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-<<<<<<< HEAD
     "start": "node app.js",
     "dev": "nodemon app.js",
     "start:prod": "NODE_ENV=production nodemon app.js"
-=======
-    "start": "node app.js"
->>>>>>> 381140de49bcf97fbf39c4fdc119df714c000406
   },
   "repository": {
     "type": "git",
@@ -36,11 +32,7 @@
     "multer": "^1.4.2",
     "path": "^0.12.7"
   },
-<<<<<<< HEAD
   "engines": {
     "node": ">=10.0.0"
   }
-=======
-  "description": ""
->>>>>>> 381140de49bcf97fbf39c4fdc119df714c000406
 }
