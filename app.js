@@ -10,6 +10,8 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 const db=require('./database/db')
 
+const port = process.env.port || 90;
+
 
 
 app.use(cors(
@@ -28,6 +30,7 @@ app.use(WorkRoute)
 // app.use(NotificationRoute)
 const ReportRoute=require('./routes/ReportRoute')
 app.use(ReportRoute)
+<<<<<<< HEAD
 const ApplyforjobRoute = require('./Routes/ApplyforjobRoute'); // for CRUD on user
 app.use(ApplyforjobRoute);
 
@@ -35,3 +38,11 @@ app.use(ApplyforjobRoute);
 app.listen(process.env.PORT || 3001, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
+=======
+const ApplyforjobRoute = require('./routes/ApplyforjobRoute'); // for CRUD on user
+app.use(ApplyforjobRoute);
+
+
+app.listen(port, ()=>console.log("App listening on port "+ port )
+);
+>>>>>>> 381140de49bcf97fbf39c4fdc119df714c000406
