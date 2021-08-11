@@ -30,7 +30,7 @@ app.use(WorkRoute)
 // app.use(NotificationRoute)
 const ReportRoute=require('./routes/ReportRoute')
 app.use(ReportRoute)
-const ApplyforjobRoute = require('./Routes/ApplyforjobRoute'); // for CRUD on user
+const ApplyforjobRoute = require('./routes/ApplyforjobRoute'); // for CRUD on user
 app.use(ApplyforjobRoute);
 
 
