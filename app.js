@@ -4,21 +4,22 @@ const cors=require('cors');
 const path=require('path')
 const publicDir = path.join(__dirname,'public')
 const app=express();
-const ApplyforjobRoute = require('./Routes/ApplyforjobRoute'); // for CRUD on user
 app.use(express.static(publicDir));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}))
 
 const db=require('./database/db')
 
+const port = process.env.port || 90;
+
 
 
 app.use(cors(
     // {credentials: true, origin: 'http://localhost:3000'}
     ))
-    app.use(ApplyforjobRoute);
+    
 
-
+//Routes
 const EmployerRoute=require('./routes/employeerRoute')
 app.use(EmployerRoute)
 const HireRoute=require('./routes/HireRoute')
@@ -29,6 +30,10 @@ app.use(WorkRoute)
 // app.use(NotificationRoute)
 const ReportRoute=require('./routes/ReportRoute')
 app.use(ReportRoute)
+const ApplyforjobRoute = require('./routes/ApplyforjobRoute'); // for CRUD on user
+app.use(ApplyforjobRoute);
 
 
-app.listen(90);
+app.listen(process.env.PORT || 90, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
