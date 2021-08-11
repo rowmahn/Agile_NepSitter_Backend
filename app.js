@@ -19,7 +19,7 @@ app.use(cors(
     ))
     
 
-
+//Routes
 const EmployerRoute=require('./routes/employeerRoute')
 app.use(EmployerRoute)
 const HireRoute=require('./routes/HireRoute')
