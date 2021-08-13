@@ -26,7 +26,7 @@ const Employeer=mongoose.model('Employeer',{
     },
     Gender:{
         type:String,
-        enum:['Male','Female','Other']
+        // enum:['Male','Female','Other']
         
     },
     Location:{

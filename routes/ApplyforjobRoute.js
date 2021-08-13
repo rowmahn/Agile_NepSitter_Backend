@@ -186,24 +186,37 @@ router.put('/worker/upprofilepic',authentication.verifyWorker, upload.single('im
     })
 })
 
-router.put('/worker/updateprofile',authentication.verifyWorker,function(req,res){
-  const fname=req.body.fname
-  const lname=req.body.lname
-  const bdate=req.body.bdate
-  const phone=req.body.phone
-  const address=req.body.address
-  const province = req.body.province;
-  const city = req.body.city;
-   const district = req.body.district;
-  Worker.findByIdAndUpdate({_id:req.worker._id},{ fname:fname, lname:lname, bdate:bdate, phone:phone,
-    address:address, city:city, district:district,province:province})
-    .then((data)=>{
-      res.status(203).json({data,success:true})
+
+router.get('/worker/profile',authentication.verifyWorker,(req,res)=>{
+  Worker.findById({_id:req.worker._id})
+  .then((data)=>{
+      res.status(200).json({data,success:true})
   })
   .catch((error)=>{
       res.status(404).json({error,success:false})
   })
 })
 
+
+router.put('/worker/updateprofile',authentication.verifyWorker,(req,res) =>{
+  const fname=req.body.fname;
+      const lname=req.body.lname;
+      const gender=req.body.gender;
+      const phone=req.body.phone;
+      const certificate=req.body.certificate;
+      Worker.findByIdAndUpdate({_id:req.worker._id},{
+          fname:fname,
+          lname:lname,
+          gender:gender,
+          phone:phone,
+          certificate:certificate
+      })
+      .then((data)=>{
+          res.status(203).json({data,success:true})
+      })
+      .catch((error)=>{
+          res.status(404).json({error,success:false})
+      })
+})
 
 module.exports = router;
