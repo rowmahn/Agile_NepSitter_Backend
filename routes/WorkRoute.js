@@ -4,15 +4,15 @@ const Work = require('../models/Work')
 const authentication=require('../middlewares/authentication')
 const upload=require('../middlewares/uploads');
 const Hire=require('../models/Hire')
-router.post('/timer/:hr/:hireID',authentication.verifyWorker, function(req,res){
-    const WorkerID=req.worker._id;
+router.post('/timer/:hr/:hireID', function(req,res){
+    
    
     const Workinghours=req.params.hr
     const hireId=req.params.hireID
     Hire.findById({_id:hireId}).populate('EmployerID').populate('WorkerID')
     .then(function(result){
         const EmployerID=result.EmployerID._id
-      
+        const WorkerID=result.WorkerID._id
         const data=new Report({
             hireId:hireId,
             Workinghours:Workinghours, 
