@@ -42,7 +42,7 @@ router.post('/timer/:hr/:hireID', function(req,res){
 router.get('/getworkinghour/:hireId',authentication.verifyEmployer,function(req,res){
     const hireId=req.params.hireId;
     
-    Work.find({hireId:hireId,paid:false})
+    Work.find({hireId:hireId,paid:false}).sort('-CreatedAt')
     .then(function(data){
         res.status(201).json({success:true,data})
 
@@ -55,7 +55,7 @@ router.get('/getworkinghour/:hireId',authentication.verifyEmployer,function(req,
 })
 router.get('/getworkinghistory/:hireId',function(req,res){
     const hireId=req.params.hireId;
-    Work.find({hireId:hireId})
+    Work.find({hireId:hireId}).sort('-CreatedAt')
     .then(function(data){
         res.status(201).json({success:true,data})
 
@@ -68,9 +68,22 @@ router.get('/getworkinghistory/:hireId',function(req,res){
 })
 router.get('/works/paid/:hireId',function(req,res){
     const hireId=req.params.hireId
-    Work.find({hireId:hireId,paid:true})
+    Work.find({hireId:hireId,paid:true}).sort('-CreatedAt')
     .then(function(data){
         res.status(201).json({success:true,data})
+
+    })
+    .catch(function(e){
+       
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
+router.put('/payment/:hireId',function(req,res){
+    const hireId=req.params.hireId
+    Work.findOneAndUpdate({hireId:hireID},{paid:true})
+    .then(function(data){
+        res.status(203).json({success:true,data})
 
     })
     .catch(function(e){
