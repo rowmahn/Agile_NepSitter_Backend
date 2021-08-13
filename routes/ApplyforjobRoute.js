@@ -175,4 +175,26 @@ router.put('/worker/upprofilepic',authentication.verifyWorker, upload.single('im
     })
 })
 
+
+router.put('/worker/updateprofile',authentication.verifyWorker,(req,res) =>{
+  const fname=req.body.fname;
+      const lname=req.body.lname;
+      const gender=req.body.gender;
+      const phone=req.body.phone;
+      const certificate=req.body.certificate;
+      Worker.findByIdAndUpdate({_id:req.worker._id},{
+          fname:fname,
+          lname:lname,
+          gender:gender,
+          phone:phone,
+          certificate:certificate
+      })
+      .then((data)=>{
+          res.status(203).json({data,success:true})
+      })
+      .catch((error)=>{
+          res.status(404).json({error,success:false})
+      })
+})
+
 module.exports = router;
