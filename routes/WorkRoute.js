@@ -41,8 +41,34 @@ router.post('/timer/:hr/:hireID', function(req,res){
 })
 router.get('/getworkinghour/:hireId',authentication.verifyEmployer,function(req,res){
     const hireId=req.params.hireId;
-    const EmployerID=req.employer._id;
+    
     Work.find({hireId:hireId,paid:false})
+    .then(function(data){
+        res.status(201).json({success:true,data})
+
+    })
+    .catch(function(e){
+       
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
+router.get('/getworkinghistory/:hireId',function(req,res){
+    const hireId=req.params.hireId;
+    Work.find({hireId:hireId})
+    .then(function(data){
+        res.status(201).json({success:true,data})
+
+    })
+    .catch(function(e){
+       
+        res.status(500).json({message:e,success:false})
+        
+    })
+})
+router.get('/works/paid/:hireId',function(req,res){
+    const hireId=req.params.hireId
+    Work.find({hireId:hireId,paid:true})
     .then(function(data){
         res.status(201).json({success:true,data})
 
