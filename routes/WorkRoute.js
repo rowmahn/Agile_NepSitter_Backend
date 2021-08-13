@@ -9,17 +9,20 @@ router.post('/timer/:hr/:hireID', function(req,res){
    
     const Workinghours=req.params.hr
     const hireId=req.params.hireID
+    console.log(hireId)
+    console.log(Workinghours)
     Hire.findById({_id:hireId}).populate('EmployerID').populate('WorkerID')
     .then(function(result){
         const EmployerID=result.EmployerID._id
         const WorkerID=result.WorkerID._id
-        const data=new Report({
+        const data=new Work({
             hireId:hireId,
             Workinghours:Workinghours, 
             EmployerID:EmployerID,
             WorkerID:WorkerID
         })
         data.save()
+    
         .then(function(data){
             res.status(201).json({success:true,data})
     
@@ -29,6 +32,7 @@ router.post('/timer/:hr/:hireID', function(req,res){
             res.status(500).json({message:err,success:false})
             
         })
+        console.log(result)
 
     })
     .catch(function(e){
