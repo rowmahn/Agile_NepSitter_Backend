@@ -11,9 +11,7 @@ desbribe ("workers", function(){
     .set('accept', 'application/json')
     .expect('content-type' , /json/)
     .expect(200)
-    // .then((response)=>{
-
-    // })
+    
    })
 }
 )
