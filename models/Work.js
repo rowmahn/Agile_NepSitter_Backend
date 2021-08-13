@@ -1,5 +1,10 @@
 const mongoose=require('mongoose');
 const Work=mongoose.model('WORK',{
+    hireId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Hire'
+        
+    },
     EmployerID:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Employeer'
