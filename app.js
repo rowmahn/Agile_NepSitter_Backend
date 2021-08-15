@@ -33,6 +33,8 @@ app.use(ReportRoute)
 const ApplyforjobRoute = require('./routes/ApplyforjobRoute'); // for CRUD on user
 app.use(ApplyforjobRoute);
 
+const FeedbackRoute=require('./routes/FeedbackRoute')
+app.use(FeedbackRoute)
 
 app.listen(process.env.PORT || 90, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
