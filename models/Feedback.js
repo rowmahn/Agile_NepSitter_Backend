@@ -1,13 +1,6 @@
 const mongoose=require('mongoose');
 const Feedback=mongoose.model('Feedback',{
-    byemployeremail:{
-        type:String
-        
-    },
-    toworkeremail:{
-        type:String
-        
-    },
+    
     rating:{
         type: Number
 
@@ -18,10 +11,16 @@ const Feedback=mongoose.model('Feedback',{
     CreatedAt: {
         type: Date,
         default: Date.now
-    },
-    hireID:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Hire'
     }
+   
+    ,WorkerID:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Worker'
+    },
+    EmployerID:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Employeer'
+    }
+
 })
 module.exports=Feedback

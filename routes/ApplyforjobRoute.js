@@ -99,17 +99,19 @@ function(req,res){
     })
 })
 
-router.get('/showworker/details/:_id'),
+router.get('/showworker/details/:id',
 function(req,res){
-  Worker.findById({id:req.param._id}).select("-password").sort('-createdAT')
+  console.log(req.params.id)
+  Worker.findById({_id:req.params.id}).select("-password").sort('-createdAT')
   .then(function(data){
       
       res.status(200).json({data,success:true})
   })
   .catch(function(e){
+    console.log(e)
       res.status(400).json({message:e,success:false})
   })
-}
+})
 router.get('/unapproved',function(req,res){
   Worker.find({approved:false}).sort('-createdAt').select('-password')
       .then(function(data){

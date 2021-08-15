@@ -3,36 +3,26 @@ const router = express.Router();
 const Feedback = require('../models/Feedback')
 const Hire=require('../models/Hire')
 const Worker = require('../models/Work')
+const authentication=require('../middlewares/authentication')
 
-router.post('/worker/feedback/:hid', function(req,res){
-    const hireID=req.params.hid;
+router.post('/worker/feedback/:id',authentication.verifyEmployer,function(req,res){
+    // const hireID=req.params.hid;
     const rating= req.body.rating;
     const feedback= req.body.feedback;
-    Hire.findById({_id:hireID}).populate('EmployerID').populate('WorkerID')
-    .then(function(result){
-        const byemployeremail=result.EmployerID.Email
-        const toworkeremail=result.WorkerID.Email
-        const data=new Feedback({
-            hireID:hireID,
-            rating:rating, 
-            feedback:feedback,
-            byemployeremail:byemployeremail,
-            toworkeremail:toworkeremail
-        })
-        data.save()
-        .then(function(data){
-            res.status(201).json({success:true,data})
-    
-        })
-        .catch(function(err){
-           
-            res.status(500).json({message:err,success:false})
-            
-        })
-
+    const WorkerID=req.params.id
+    const EmployerID=req.employer._id
+    const data=new Feedback({
+        rating:rating,
+        feedback:feedback,
+        WorkerID:WorkerID,
+        EmployerID:EmployerID
     })
-    .catch(function(e){
-        res.status(404).json({message:"hireid not found",success:false})
+    data.save()
+    .then((Data)=>{
+        res.status(201).json({message:"created",success:true,Data})
+    })
+    .catch((err)=>{
+        res.status(401).json({success:false,err})
     })
     
 })
