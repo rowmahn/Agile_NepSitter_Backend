@@ -79,9 +79,9 @@ router.get('/works/paid/:hireId',function(req,res){
         
     })
 })
-router.put('/payment/:hireId',function(req,res){
-    const hireId=req.params.hireId
-    Work.findOneAndUpdate({hireId:hireID},{paid:true})
+router.put('/payment/:id',function(req,res){
+    const id=req.params.id
+    Work.findByIdAndUpdate({_id:id},{paid:true})
     .then(function(data){
         res.status(203).json({success:true,data})
 
