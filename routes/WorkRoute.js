@@ -92,6 +92,9 @@ router.put('/payment/:id',function(req,res){
         
     })
 })
+router.get('/',function(req,res){
+    res.send("wel come to nepsitter !!")
+})
 
 
 
