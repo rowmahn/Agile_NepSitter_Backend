@@ -92,7 +92,7 @@ router.put('/payment/:id',function(req,res){
         
     })
 })
-app.post("/checkout", async (req, res) => {
+router.post("/checkout", async (req, res) => {
     console.log("Request:", req.body);
   
     let error;
