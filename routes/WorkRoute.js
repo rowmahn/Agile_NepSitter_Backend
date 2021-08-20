@@ -137,4 +137,15 @@ router.post("/checkout", async (req, res) => {
   
     res.json({ error, status });
   })
+  router.get('/getbywork/single/:id',function(req,res){
+      Work.findById({_id:req.params.id}).populate('EmployerID')
+      .populate('WorkerID')
+      .then(data=>{
+          res.status(200).json({success:true,data})
+      })
+      .catch(err=>{
+          res.status(402).json({success:false,err})
+      })
+
+  })
 module.exports = router;
