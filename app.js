@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}))
 const stripe = require("stripe")("sk_test_51JQEfuSC8kT63K4ckDlri6qoa4pyWKh16AZyXLxOPJdO4lRN9nax92pxyR8gsuO9KPwzA6VgrpO6ROUtANvz0wmd00n6JdFPhB");
 const db=require('./database/db')
-
+const uuid=require('uuid/v4')
 
 
 app.use(cors(
@@ -30,5 +30,5 @@ app.use(WorkRoute)
 const ReportRoute=require('./routes/ReportRoute')
 app.use(ReportRoute)
 
-
+app.use(uuid)
 app.listen(90);
