@@ -3,10 +3,10 @@ const router = express.Router();
 const Work = require('../models/Work')
 const authentication=require('../middlewares/authentication')
 const upload=require('../middlewares/uploads');
-const Hire=require('../models/Hire')
+const Hire=require('../models/Hire');
 router.post('/timer/:hr/:hireID', function(req,res){
     
-   
+   console.log(req.params.hr)
     const Workinghours=req.params.hr
     const hireId=req.params.hireID
     console.log(hireId)
@@ -54,7 +54,7 @@ router.get('/getworkinghour/:hireId',authentication.verifyEmployer,function(req,
     })
 })
 router.get('/getworkinghistory/:hireId',function(req,res){
-    const hireId=req.params.hireId;
+    const hireId=req.params.hid;
     Work.find({hireId:hireId}).sort('-CreatedAt')
     .then(function(data){
         res.status(201).json({success:true,data})
@@ -92,51 +92,7 @@ router.put('/payment/:id',function(req,res){
         
     })
 })
-router.post("/checkout", async (req, res) => {
-    console.log("Request:", req.body);
-  
-    let error;
-    let status;
-    try {
-      const { Workinghours, token } = req.body;
-  
-      const customer = await stripe.customers.create({
-        email: token.email,
-        source: token.id
-      });
-  
-      const idempotency_key = uuid();
-      const charge = await stripe.charges.create(
-        {
-          amount:Workinghours* 100,
-          currency: "usd",
-          customer: customer.id,
-          receipt_email: token.email,
-          description: `Paid the work completed!!`,
-          shipping: {
-            name: token.card.name,
-            address: {
-              line1: token.card.address_line1,
-              line2: token.card.address_line2,
-              city: token.card.address_city,
-              country: token.card.address_country,
-              postal_code: token.card.address_zip
-            }
-          }
-        },
-        {
-          idempotency_key
-        }
-      );
-      console.log("Charge:", { charge });
-      status = "success";
-    } catch (error) {
-      console.error("Error:", error);
-      status = "failure";
-    }
-  
-    res.json({ error, status });
-  })
+
   router.get('/getbywork/single/:id',function(req,res){
       Work.findById({_id:req.params.id}).populate('EmployerID')
       .populate('WorkerID')
