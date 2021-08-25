@@ -23,9 +23,9 @@ afterAll(async () => {
 
            'Fullname':'thilen lama',
             'Contact':'9810285093',
-            'Email':'Thilen198@gmail.com',
+            'Email':'c@gmail.com',
             'Password':'thilen197',
-            'Gender':'male',
+            'Gender':'Male',
             'Age':'23',
             'Location':'Aarubari',
            ' Citizenship':'87018735089274'
@@ -36,7 +36,7 @@ afterAll(async () => {
         };
         return Employeer.create(employeer)
         .then((pro_ret) => {
-        expect(pro_ret.Email).toEqual('Thilen198@gmail.com');
+        expect(pro_ret.Email).toEqual('c@gmail.com');
         })
 
  
@@ -57,11 +57,11 @@ afterAll(async () => {
         })
         });
         
-// // the code below is for delete testing
-// it('to test the delete product is working or not', async () => {
-//     const status = await Employeer.deleteOne({id:"6124eaa97313100f1c324b38"})
-//     expect(status.ok).toBe(1);
-//     })
+// the code below is for delete testing
+it('to test the delete product is working or not', async () => {
+    const status = await Employeer.deleteOne({id:"6124eb4d04732f1458e4a4eb"})
+    expect(status.ok).toBe(1);
+    })
 
 
 })
