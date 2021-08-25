@@ -165,6 +165,17 @@ router.get('/search/location/:query',function(req,res){
       res.status(400).json({message:"not found details"})
   })
 })
+router.get('/worker/:location',function(req,res){
+   
+ const address=req.params.location
+  Worker.find({address:address})
+  .then(data=>{
+      res.status(200).json({data})
+  })
+  .catch(err=>{
+      res.status(400).json({message:"not found details"})
+  })
+})
 router.delete('/denyworker/:id',function(req,res){
   Worker.deleteOne({_id:req.params.id})
   .then(data=>{
