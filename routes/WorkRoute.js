@@ -39,8 +39,8 @@ router.post('/timer/:hr/:hireID', function(req,res){
         res.status(404).json({message:"hireid not found",success:false})
     })
 })
-router.get('/getworkinghour/:hireId',authentication.verifyEmployer,function(req,res){
-    const hireId=req.params.hireId;
+router.get('/getworkinghour/:hid',authentication.verifyEmployer,function(req,res){
+    const hireId=req.params.hid;
     
     Work.find({hireId:hireId,paid:false}).sort('-CreatedAt')
     .then(function(data){
@@ -53,7 +53,7 @@ router.get('/getworkinghour/:hireId',authentication.verifyEmployer,function(req,
         
     })
 })
-router.get('/getworkinghistory/:hireId',function(req,res){
+router.get('/getworkinghistory/:hid',function(req,res){
     const hireId=req.params.hid;
     Work.find({hireId:hireId}).sort('-CreatedAt')
     .then(function(data){

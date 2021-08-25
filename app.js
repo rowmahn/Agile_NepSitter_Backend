@@ -30,9 +30,5 @@ app.use(WorkRoute)
 const ReportRoute=require('./routes/ReportRoute')
 app.use(ReportRoute)
 
-app.post("/checkout", async (req, res) => {
-    console.log("Request:", req.body);
-  
-   
-  });
+
 app.listen(90);
