@@ -7,7 +7,7 @@ const app=express();
 app.use(express.static(publicDir));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}))
-
+const stripe = require("stripe")("sk_test_51JQEfuSC8kT63K4ckDlri6qoa4pyWKh16AZyXLxOPJdO4lRN9nax92pxyR8gsuO9KPwzA6VgrpO6ROUtANvz0wmd00n6JdFPhB");
 const db=require('./database/db')
 
 const port = process.env.port || 90;

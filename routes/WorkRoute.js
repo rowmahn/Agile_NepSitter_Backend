@@ -3,10 +3,10 @@ const router = express.Router();
 const Work = require('../models/Work')
 const authentication=require('../middlewares/authentication')
 const upload=require('../middlewares/uploads');
-const Hire=require('../models/Hire')
+const Hire=require('../models/Hire');
 router.post('/timer/:hr/:hireID', function(req,res){
     
-   
+   console.log(req.params.hr)
     const Workinghours=req.params.hr
     const hireId=req.params.hireID
     console.log(hireId)
@@ -39,8 +39,8 @@ router.post('/timer/:hr/:hireID', function(req,res){
         res.status(404).json({message:"hireid not found",success:false})
     })
 })
-router.get('/getworkinghour/:hireId',authentication.verifyEmployer,function(req,res){
-    const hireId=req.params.hireId;
+router.get('/getworkinghour/:hid',authentication.verifyEmployer,function(req,res){
+    const hireId=req.params.hid;
     
     Work.find({hireId:hireId,paid:false}).sort('-CreatedAt')
     .then(function(data){
@@ -53,8 +53,8 @@ router.get('/getworkinghour/:hireId',authentication.verifyEmployer,function(req,
         
     })
 })
-router.get('/getworkinghistory/:hireId',function(req,res){
-    const hireId=req.params.hireId;
+router.get('/getworkinghistory/:hid',function(req,res){
+    const hireId=req.params.hid;
     Work.find({hireId:hireId}).sort('-CreatedAt')
     .then(function(data){
         res.status(201).json({success:true,data})
@@ -99,4 +99,16 @@ router.get('/',function(req,res){
 
 
 
+
+  router.get('/getbywork/single/:id',function(req,res){
+      Work.findById({_id:req.params.id}).populate('EmployerID')
+      .populate('WorkerID')
+      .then(data=>{
+          res.status(200).json({success:true,data})
+      })
+      .catch(err=>{
+          res.status(402).json({success:false,err})
+      })
+
+  })
 module.exports = router;
