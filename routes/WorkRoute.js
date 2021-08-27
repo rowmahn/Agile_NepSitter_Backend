@@ -92,13 +92,6 @@ router.put('/payment/:id',function(req,res){
         
     })
 })
-router.get('/',function(req,res){
-    res.send("wel come to nepsitter !!")
-})
-
-
-
-
 
   router.get('/getbywork/single/:id',function(req,res){
       Work.findById({_id:req.params.id}).populate('EmployerID')
