@@ -21,7 +21,7 @@ router.post('/applyforjob',function(req, res){
    const district = req.body.district;
 
    const yourself = req.body.yourself;
-   const certificate = req.body.certificate;
+   const experience = req.body.experience;
    const gender = req.body.gender;
    const province = req.body.province;
    const study = req.body.study;
@@ -39,7 +39,7 @@ router.post('/applyforjob',function(req, res){
     const worker = new Worker({
     fname:fname, lname:lname, bdate:bdate, phone:phone,
     email:email, password:hash, address:address, city:city, district:district,
-    yourself:yourself, certificate:certificate, gender:gender, province:province,
+    yourself:yourself, experience:experience, gender:gender, province:province,
     study:study, status:status, smoke:smoke, drink:drink, jobcategory:jobcategory,
     availabilityMorning:availabilityMorning
     , availabilityEvening:availabilityEvening,
@@ -173,6 +173,20 @@ router.delete('/denyworker/:id',function(req,res){
     .catch(err=>{
         res.status(400).json({message:"not found details"})
     })
+})
+
+router.get('/findbyexperience/:experience',function(req,res){
+  
+  Worker.find({experience:req.params.experience})
+  .then(data=>{
+    console.log(data)
+    res.status(200).json({data,success:true})
+  })
+  .catch(err=>{
+    res.status(401).json({err,success:false})
+    console.log(err)
+  })
+
 })
 
 router.get('/findbygender/:gender',function(req,res){
