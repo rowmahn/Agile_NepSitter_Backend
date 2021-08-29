@@ -153,6 +153,18 @@ router.get('/search/:query',function(req,res){
   })
 })
 
+router.get('/searchlocation/:query',function(req,res){
+   
+  let searchpattern=new RegExp("^"+req.params.query)
+  Worker.find({address:{$regex:searchpattern}})
+  .then(data=>{
+      res.status(200).json({data})
+  })
+  .catch(err=>{
+      res.status(400).json({message:"not found details"})
+  })
+})
+
 router.delete('/denyworker/:id',function(req,res){
   Worker.deleteOne({_id:req.params.id})
   .then(data=>{
