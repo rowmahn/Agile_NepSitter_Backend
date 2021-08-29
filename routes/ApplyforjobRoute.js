@@ -241,5 +241,14 @@ router.put('/worker/updateprofile',authentication.verifyWorker,(req,res) =>{
           res.status(404).json({error,success:false})
       })
 })
-
+router.put('/changebadge/:id/:badge',function(req,res){
+  Worker.findByIdAndUpdate({_id:req.params.id},{badge:req.params.badge})
+  .then(function(data){
+          
+    res.status(203).json({data,success:true})
+})
+.catch(function(e){
+    res.status(400).json({message:e,success:false})
+})
+})
 module.exports = router;
