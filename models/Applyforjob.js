@@ -16,12 +16,14 @@ const Worker = mongoose.model('Worker', {
     },
     phone: {
         type: String,
-        required:true
+        required:true,
+        unique: true
       
     },
     email: {
         type: String,
-        required:true
+        required:true,
+        unique: true
 
     },
     password: {
@@ -50,19 +52,19 @@ const Worker = mongoose.model('Worker', {
         required:true
         
     },
-    certificate: {
+    experience: {
         type: String,
         required:true
         
     },
     gender: {
         type: String,
-        // required:true
+        required:true
         
     },
     province: {
         type: String,
-        // required:true
+        required:true
         
     },
     study: {
@@ -82,11 +84,12 @@ const Worker = mongoose.model('Worker', {
     },
     drink: {
         type: String,
+        required: true
         
     },
     jobcategory: {
         type: String,
-        // required:true
+        required:true
       
     },
     

@@ -21,7 +21,7 @@ router.post('/applyforjob',function(req, res){
    const district = req.body.district;
 
    const yourself = req.body.yourself;
-   const certificate = req.body.certificate;
+   const experience = req.body.experience;
    const gender = req.body.gender;
    const province = req.body.province;
    const study = req.body.study;
@@ -39,7 +39,7 @@ router.post('/applyforjob',function(req, res){
     const worker = new Worker({
     fname:fname, lname:lname, bdate:bdate, phone:phone,
     email:email, password:hash, address:address, city:city, district:district,
-    yourself:yourself, certificate:certificate, gender:gender, province:province,
+    yourself:yourself, experience:experience, gender:gender, province:province,
     study:study, status:status, smoke:smoke, drink:drink, jobcategory:jobcategory,
     availabilityMorning:availabilityMorning
     , availabilityEvening:availabilityEvening,
@@ -154,7 +154,8 @@ router.get('/search/:query',function(req,res){
       res.status(400).json({message:"not found details"})
   })
 })
-router.get('/search/location/:query',function(req,res){
+
+router.get('/searchlocation/:query',function(req,res){
    
   let searchpattern=new RegExp("^"+req.params.query)
   Worker.find({address:{$regex:searchpattern}})
@@ -176,6 +177,7 @@ router.get('/worker/:location',function(req,res){
       res.status(400).json({message:"not found details"})
   })
 })
+
 router.delete('/denyworker/:id',function(req,res){
   Worker.deleteOne({_id:req.params.id})
   .then(data=>{
@@ -226,13 +228,13 @@ router.put('/worker/updateprofile',authentication.verifyWorker,(req,res) =>{
       const lname=req.body.lname;
       const gender=req.body.gender;
       const phone=req.body.phone;
-      const certificate=req.body.certificate;
+      const experience=req.body.experience;
       Worker.findByIdAndUpdate({_id:req.worker._id},{
           fname:fname,
           lname:lname,
           gender:gender,
           phone:phone,
-          certificate:certificate
+          experience:experience
       })
       .then((data)=>{
           res.status(203).json({data,success:true})
@@ -251,4 +253,32 @@ router.put('/changebadge/:id/:badge',function(req,res){
     res.status(400).json({message:e,success:false})
 })
 })
+router.get('/findbyexperience/:experience',function(req,res){
+  
+  Worker.find({experience:req.params.experience})
+  .then(data=>{
+    console.log(data)
+    res.status(200).json({data,success:true})
+  })
+  .catch(err=>{
+    res.status(401).json({err,success:false})
+    console.log(err)
+  })
+
+})
+
+router.get('/findbygender/:gender',function(req,res){
+  
+  Worker.find({gender:req.params.gender})
+  .then(data=>{
+    console.log(data)
+    res.status(200).json({data,success:true})
+  })
+  .catch(err=>{
+    res.status(401).json({err,success:false})
+    console.log(err)
+  })
+
+})
+
 module.exports = router;
