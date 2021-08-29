@@ -163,4 +163,18 @@ router.delete('/denyworker/:id',function(req,res){
     })
 })
 
+router.get('/findbygender/:gender',function(req,res){
+  
+  Worker.find({gender:req.params.gender})
+  .then(data=>{
+    console.log(data)
+    res.status(200).json({data,success:true})
+  })
+  .catch(err=>{
+    res.status(401).json({err,success:false})
+    console.log(err)
+  })
+
+})
+
 module.exports = router;
