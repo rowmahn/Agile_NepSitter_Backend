@@ -154,7 +154,28 @@ router.get('/search/:query',function(req,res){
       res.status(400).json({message:"not found details"})
   })
 })
-
+router.get('/search/location/:query',function(req,res){
+   
+  let searchpattern=new RegExp("^"+req.params.query)
+  Worker.find({address:{$regex:searchpattern}})
+  .then(data=>{
+      res.status(200).json({data})
+  })
+  .catch(err=>{
+      res.status(400).json({message:"not found details"})
+  })
+})
+router.get('/worker/:location',function(req,res){
+   
+ const address=req.params.location
+  Worker.find({address:address})
+  .then(data=>{
+      res.status(200).json({data})
+  })
+  .catch(err=>{
+      res.status(400).json({message:"not found details"})
+  })
+})
 router.delete('/denyworker/:id',function(req,res){
   Worker.deleteOne({_id:req.params.id})
   .then(data=>{
@@ -220,5 +241,14 @@ router.put('/worker/updateprofile',authentication.verifyWorker,(req,res) =>{
           res.status(404).json({error,success:false})
       })
 })
-
+router.put('/changebadge/:id/:badge',function(req,res){
+  Worker.findByIdAndUpdate({_id:req.params.id},{badge:req.params.badge})
+  .then(function(data){
+          
+    res.status(203).json({data,success:true})
+})
+.catch(function(e){
+    res.status(400).json({message:e,success:false})
+})
+})
 module.exports = router;

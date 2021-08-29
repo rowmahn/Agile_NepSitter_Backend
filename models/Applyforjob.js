@@ -118,6 +118,11 @@ const Worker = mongoose.model('Worker', {
     },
     image:{
         type:String
+    },
+    badge:{
+        type:String,
+        default:'Beginner',
+        enum:['Beginner','Intermediate','Professional']
     }
 })
     module.exports = Worker;
