@@ -187,15 +187,6 @@ router.delete('/denyworker/:id',function(req,res){
         res.status(400).json({message:"not found details"})
     })
 })
-router.get('/worker/profile',authentication.verifyWorker, function(req,res){
-  Worker.findById({_id:req.worker._id})
-  .then((data)=>{
-      res.status(200).json({data,success:true})
-  })
-  .catch((error)=>{
-      res.status(404).json({error,success:false})
-  })
-})
 
 router.put('/worker/upprofilepic',authentication.verifyWorker, upload.single('image'), function(req,res){
   if(req.file==undefined){
@@ -212,16 +203,26 @@ router.put('/worker/upprofilepic',authentication.verifyWorker, upload.single('im
 })
 
 
-router.get('/worker/profile',authentication.verifyWorker,(req,res)=>{
-  Worker.findById({_id:req.worker._id})
-  .then((data)=>{
-      res.status(200).json({data,success:true})
+router.get('/getworker/profile',authentication.verifyWorker,(req,res)=>{
+  console.log(req.worker._id)
+  Worker.findOne({_id:req.worker._id})
+  .then(data=>{
+    res.status(200).json({data,success:true})
+  })
+  .catch((error)=>{
+      res.status(404).json({error,success:false})
+  })
+ 
+})
+router.get('/getrecomendation/:service', (req,res)=>{
+  Worker.find({jobcategory:req.params.service})
+  .then(data=>{
+    res.status(200).json({data,success:true})
   })
   .catch((error)=>{
       res.status(404).json({error,success:false})
   })
 })
-
 
 router.put('/worker/updateprofile',authentication.verifyWorker,(req,res) =>{
   const fname=req.body.fname;
