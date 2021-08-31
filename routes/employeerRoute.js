@@ -8,10 +8,24 @@ const authentication=require('../middlewares/authentication')
 const upload=require('../middlewares/uploads')
 
 
-router.post('/employer/register',
+router.post('/employer/register',[
+    check('Email', "Email is not valid!!").isEmail()
+],
+async function(req,res){
 
-function(req,res){
-     
+    const errors = validationResult(req);
+    const employer = await Employeer.findOne({ Email: req.body.Email });
+    if (employer != null) {
+        return res.status(422).json({
+            success: false,
+            errors: [
+                {
+                    msg: 'Email already exists'
+                }
+            ],
+        })
+    }
+     if(errors.isEmpty()){
         const Email=req.body.Email;
         
         const Fullname=req.body.Fullname;
@@ -33,13 +47,16 @@ function(req,res){
                 Age:Age,
                 Location:Location,
                 Citizenship:Citizenship
+
                 
             })
             data.save()
             .then(function(data){
-                res.status(201).json({success:true,data})
+                res.status(201).json({message:"Employer Registered Sucessfully",success:true,data:data})
 
             })
+
+     
             .catch(function(e){
                 
                 res.status(500).json({message:e,success:false})
@@ -48,10 +65,13 @@ function(req,res){
         
         })
     
-    // }
-    // else{
-    //     res.status(400).json(errors.array())
-    // }
+    }
+    else{
+        res.status(422).json({
+            success: false,
+            errors: errors.errors,
+        })
+    }
    
 })
 router.get('/unapproved/employer',function(req,res){
@@ -132,20 +152,20 @@ router.post('/user/login',function(req,res){
     Employeer.findOne({Email:req.body.Email})
     .then(function(userData){
         if(userData===null){
-           return res.status(401).json({message:"Authentication fail"})
+           return res.status(401).json({message:"Authentication failed"})
         }
         const approved=userData.Approved
         if(approved===true){
             bcryptjs.compare(req.body.Password,userData.Password,function(err,cresult){
                 if(cresult===false){
-                  return  res.status(401).json({message:" unAuthorized user"})
+                  return  res.status(401).json({message:" UnAuthorized user"})
                 }
                const token= jwt.sign({uid:userData._id},'secretkey');
                res.status(200).json({success:true,token:token,message:"login Successful", userData})
             })
         }
         else{
-            res.status(404).json({message:"unapproved user",success:false})
+            res.status(404).json({message:"Employer Not Approved Yet",success:false})
           }
        
     })

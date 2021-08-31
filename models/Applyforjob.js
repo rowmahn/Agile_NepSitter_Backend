@@ -16,8 +16,7 @@ const Worker = mongoose.model('Worker', {
     },
     phone: {
         type: String,
-        required:true,
-        unique: true
+        required:true
       
     },
     email: {

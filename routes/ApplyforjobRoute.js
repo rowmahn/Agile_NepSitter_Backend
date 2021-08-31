@@ -8,7 +8,22 @@ const jwt=require('jsonwebtoken')
 const authentication=require('../middlewares/authentication')
 const upload=require('../middlewares/uploads')
 
-router.post('/applyforjob',function(req, res){
+router.post('/applyforjob',
+async function(req, res){
+
+  const errors = validationResult(req);
+  const worker = await Worker.findOne({ email: req.body.email });
+  if (worker != null) {
+      return res.status(422).json({
+          success: false,
+          errors: [
+              {
+                  msg: 'Email already Exists'
+              }
+          ],
+      })
+  }
+  if(errors.isEmpty()){
   console.log(req.body)
    const fname = req.body.fname;
    const lname = req.body.lname;
@@ -47,7 +62,7 @@ router.post('/applyforjob',function(req, res){
 });
     worker.save()
     .then(function(result){
-      res.status(201).json({message: "Form submited we will review it soon!!", success:true })
+      res.status(201).json({message: "Worker Registered Sucessfully", success:true, data:result })
     })
     .catch(function(e){
 
@@ -56,6 +71,13 @@ router.post('/applyforjob',function(req, res){
     })
 
   })
+}
+  else{
+    res.status(422).json({
+        success: false,
+        errors: errors.errors,
+    })
+}
 })
 
 router.post('/Worker/login',function(req,res){
@@ -68,14 +90,14 @@ router.post('/Worker/login',function(req,res){
     if(approved===true){
       bcryptjs.compare(req.body.password,data.password,function(err,cresult){
         if(cresult===false){
-          return  res.status(401).json({message:" unAuthorized user"})
+          return  res.status(401).json({message:" UnAuthorized user"})
         }
        const token= jwt.sign({wid:data._id},'secretkey');
        res.status(200).json({success:true,token:token,message:"login Successful", data})
     })
     }
     else{
-      res.status(404).json({message:"unapproved user",success:false})
+      res.status(404).json({message:"Worker Not Approved Yet",success:false})
     }
       
      
